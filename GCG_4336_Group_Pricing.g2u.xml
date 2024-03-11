@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxEdit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BorderStyle>None</BorderStyle>
+  <Pages>
+    <DefaultPage>
+      <Header>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Header>
+      <Footer>
+        <Offset>
+          <X>0</X>
+          <Y>0</Y>
+        </Offset>
+      </Footer>
+      <PageSize>
+        <Width>0</Width>
+        <Height>0</Height>
+      </PageSize>
+    </DefaultPage>
+  </Pages>
+  <DisplayStrings />
+  <Selection>
+    <SelectionRect>
+      <Location>
+        <X>0</X>
+        <Y>164</Y>
+      </Location>
+      <Size>
+        <Width>24</Width>
+        <Height>6</Height>
+      </Size>
+      <X>0</X>
+      <Y>164</Y>
+      <Width>24</Width>
+      <Height>6</Height>
+    </SelectionRect>
+    <Options>UseColors OverwriteBlocks SelectLineOnTripleClick CopyLineWhenEmpty SelectWordOnCtrlClick</Options>
+  </Selection>
+  <Gutter>
+    <LineNumbersForeColor>WindowText</LineNumbersForeColor>
+    <Options>PaintLineNumbers PaintBookMarks PaintLineModificators</Options>
+  </Gutter>
+  <Margin>
+    <Visible>false</Visible>
+  </Margin>
+  <LineStyles />
+  <LineSeparator />
+  <Printing>
+    <Footer>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+    </Footer>
+    <Header>
+      <Offset>
+        <X>0</X>
+        <Y>0</Y>
+      </Offset>
+    </Header>
+  </Printing>
+  <WhiteSpace />
+  <TextSource>
+    <Position>
+      <X>0</X>
+      <Y>164</Y>
+    </Position>
+    <Lexer>
+      <Scheme>
+        <Author>Quantum Whale, LLC.</Author>
+        <Copyright>Copyright (c) 2004 - 2014 Quantum Whale LLC.</Copyright>
+        <FileType>gas</FileType>
+        <Version>1.5</Version>
+        <Styles>
+          <Style>
+            <Name>idents</Name>
+            <ForeColor>ControlText</ForeColor>
+          </Style>
+          <Style>
+            <Name>numbers</Name>
+            <ForeColor>ControlText</ForeColor>
+          </Style>
+          <Style>
+            <Name>reswords</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>comments</Name>
+            <ForeColor>Green</ForeColor>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>xmlcomments</Name>
+            <ForeColor>Gray</ForeColor>
+          </Style>
+          <Style>
+            <Name>symbols</Name>
+            <ForeColor>WindowText</ForeColor>
+          </Style>
+          <Style>
+            <Name>whitespace</Name>
+            <ForeColor>WindowText</ForeColor>
+          </Style>
+          <Style>
+            <Name>strings</Name>
+            <ForeColor>Maroon</ForeColor>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>directives</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>htmlparams</Name>
+            <ForeColor>Red</ForeColor>
+          </Style>
+          <Style>
+            <Name>syntax errors</Name>
+            <ForeColor>Red</ForeColor>
+          </Style>
+          <Style>
+            <Name>codes nippets</Name>
+            <ForeColor>Black</ForeColor>
+            <BackColor>255:180:228:180</BackColor>
+          </Style>
+          <Style>
+            <Name>GabReservedWords</Name>
+            <ForeColor>Blue</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabTokenWithBrackets</Name>
+            <ForeColor>Gray</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabFunctionIntrinsicDebug</Name>
+            <ForeColor>White</ForeColor>
+            <BackColor>Red</BackColor>
+            <FontStyle>Bold</FontStyle>
+            <PlainText>true</PlainText>
+          </Style>
+          <Style>
+            <Name>GabVariable</Name>
+            <ForeColor>Teal</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabVariableSystemDefined</Name>
+            <ForeColor>Teal</ForeColor>
+            <FontStyle>Bold Italic</FontStyle>
+          </Style>
+          <Style>
+            <Name>GabGui</Name>
+            <ForeColor>OrangeRed</ForeColor>
+          </Style>
+          <Style>
+            <Name>GabProgramSubStartEnd</Name>
+            <ForeColor>Black</ForeColor>
+            <BackColor>LightGray</BackColor>
+            <FontStyle>Bold</FontStyle>
+            <PlainText>true</PlainText>
+          </Style>
+        </Styles>
+      </Scheme>
+    </Lexer>
+    <TextStrings>
+      <Lines>
+        <string>Program.Sub.Preflight.Start</string>
+        <string />
+        <string>Program.Sub.Preflight.End</string>
+        <string />
+        <string>Program.Sub.Main.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("Main_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string>V.Local.sDate.Declare(String)</string>
+        <string />
+        <string>'opening connection</string>
+        <string>F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)</string>
+        <string />
+        <string>F.Intrinsic.Control.SelectCase(V.Caller.Hook)</string>
+        <string>	'qty ordered hook (order entry lines)</string>
+        <string>	F.Intrinsic.Control.Case(12120)</string>
+        <string>		F.Intrinsic.Control.If(V.Passed.000007.Length,=,.0)</string>
+        <string>			F.Intrinsic.Control.CallSub(exit)</string>
+        <string>		F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>		F.Intrinsic.Control.If(V.Passed.000011,=,000000)</string>
+        <string>			F.Intrinsic.UI.Msgbox("A Promise Date needs to be entered")</string>
+        <string>			V.Passed.000007.Set(" ")</string>
+        <string>			F.Intrinsic.Control.CallSub(exit)</string>
+        <string>		F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>		F.Intrinsic.Control.CallSub(get_price,"Screen","Order")</string>
+        <string />
+        <string>	'Part\Rev hook (Quick Quotes Lines) this hook fires when selecting a part and when changing the promise date</string>
+        <string>	F.Intrinsic.Control.Case(10300)</string>
+        <string>		F.Intrinsic.Control.If(V.Passed.000011,=,000000)</string>
+        <string>			F.Intrinsic.String.Format(V.Ambient.Date,"YYYYMMDD",V.Local.sDate)</string>
+        <string>			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote","Date",V.Local.sDate)</string>
+        <string>		F.Intrinsic.Control.Else</string>
+        <string>			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote")</string>
+        <string>		F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>	'qty ordered hook (Quick Quotes Lines)</string>
+        <string>	F.Intrinsic.Control.Case(10370)</string>
+        <string>		F.Intrinsic.Control.If(V.Passed.000007,=,.0)</string>
+        <string>			F.Intrinsic.Control.CallSub(exit)</string>
+        <string>		F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>		F.Intrinsic.Control.If(V.Passed.000011,=,000000)</string>
+        <string>			F.Intrinsic.String.Format(V.Ambient.Date,"YYYYMMDD",V.Local.sDate)</string>
+        <string>			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote","Date",V.Local.sDate)</string>
+        <string>		F.Intrinsic.Control.Else</string>
+        <string>			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote")</string>
+        <string>		F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>	'populate hook (order entry lines)</string>
+        <string>	F.Intrinsic.Control.Case(12045)</string>
+        <string>		F.Intrinsic.Control.If(V.Passed.000011,=,000000)</string>
+        <string>			F.Intrinsic.Control.CallSub(exit)</string>
+        <string>		F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>		F.Intrinsic.Control.CallSub(get_price,"Screen","Order")</string>
+        <string />
+        <string>		'promise date hook (order entry lines)</string>
+        <string>	F.Intrinsic.Control.Case(12221)</string>
+        <string>		F.Intrinsic.Control.If(V.Passed.000011,=,000000)</string>
+        <string>			F.Intrinsic.Control.CallSub(exit)</string>
+        <string>		F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>		F.Intrinsic.Control.CallSub(get_price,"Screen","Order")</string>
+        <string>F.Intrinsic.Control.EndSelect</string>
+        <string />
+        <string>F.Intrinsic.Control.CallSub(exit)</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("Main_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4336_Group_Pricing.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	F.Intrinsic.Control.CallSub(exit)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.Main.End</string>
+        <string />
+        <string>Program.Sub.Exit.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("Exit_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string />
+        <string>'closing connection</string>
+        <string>F.ODBC.Connection!con.Close</string>
+        <string>'ending program</string>
+        <string>F.Intrinsic.Control.End</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("Exit_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4336_Group_Pricing.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	F.Intrinsic.Control.End</string>
+        <string />
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.Exit.End</string>
+        <string />
+        <string>Program.Sub.Get_Price.Start</string>
+        <string>F.Intrinsic.Control.SetErrorHandler("Get_Price_Err")</string>
+        <string>F.Intrinsic.Control.ClearErrors</string>
+        <string />
+        <string>V.Local.sError.Declare(String)</string>
+        <string>V.Local.sSql.Declare(String)</string>
+        <string>V.Local.sDate.Declare(String)</string>
+        <string>V.Local.sTemp.Declare(String)</string>
+        <string>V.Local.bRet.Declare(Boolean,False)</string>
+        <string />
+        <string>V.Local.sTemp.RedimPreserve(0,2)</string>
+        <string />
+        <string>F.Intrinsic.Variable.ArgExists("Date",V.Local.bRet)</string>
+        <string />
+        <string>F.Intrinsic.Control.If(V.Args.Screen,=,"Quote")</string>
+        <string>	F.Intrinsic.Control.If(V.Local.bRet,=,True)</string>
+        <string>		F.Intrinsic.String.Mid(V.Args.Date,3,2,V.Local.sTemp(2))</string>
+        <string>		F.Intrinsic.String.Mid(V.Args.Date,5,2,V.Local.sTemp(0))</string>
+        <string>		F.Intrinsic.String.Right(V.Args.Date,2,V.Local.sTemp(1))</string>
+        <string>	F.Intrinsic.Control.Else</string>
+        <string>		F.Intrinsic.String.Mid(V.Passed.000011,3,2,V.Local.sTemp(2))</string>
+        <string>		F.Intrinsic.String.Mid(V.Passed.000011,5,2,V.Local.sTemp(0))</string>
+        <string>		F.Intrinsic.String.Right(V.Passed.000011,2,V.Local.sTemp(1))</string>
+        <string>	F.Intrinsic.Control.EndIf</string>
+        <string>	F.Intrinsic.String.Build("20{0}-{1}-{2}",V.Local.sTemp(2),V.Local.sTemp(0),V.Local.sTemp(1),V.Local.sDate)</string>
+        <string>	F.Intrinsic.String.Build("Select Top 1 Part, Eff_Date, FF_Price From V_OE_Grp_Pricing Where Part = '{0}' and Eff_Date &lt;= '{1}'",V.Passed.000052,V.Local.sDate,V.Local.sSql)</string>
+        <string />
+        <string>F.Intrinsic.Control.Else	</string>
+        <string>	F.Intrinsic.String.Left(V.Passed.000011,4,V.Local.sTemp(0))</string>
+        <string>	F.Intrinsic.String.Mid(V.Passed.000011,5,2,V.Local.sTemp(1))</string>
+        <string>	F.Intrinsic.String.Right(V.Passed.000011,2,V.Local.sTemp(2))</string>
+        <string>	F.Intrinsic.String.Build("{0}-{1}-{2}",V.Local.sTemp(0),V.Local.sTemp(1),V.Local.sTemp(2),V.Local.sDate)</string>
+        <string>	F.Intrinsic.String.Build("Select Top 1 Part, Eff_Date, FF_Price From V_OE_Grp_Pricing Where Part = '{0}' and Eff_Date &lt;= '{1}'",V.Passed.000052,V.Local.sDate,V.Local.sSql)</string>
+        <string />
+        <string>F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>F.Data.DataTable.CreateFromSQL("GP","con",V.Local.sSql,True)</string>
+        <string />
+        <string>F.Intrinsic.Control.If(V.DataTable.GP.RowCount--,&lt;&gt;,-1)</string>
+        <string>	V.Passed.000009.Set(V.DataTable.GP(0).FF_Price!FieldValFloat)</string>
+        <string>F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>F.Intrinsic.Control.If(V.DataTable.GP.Exists)</string>
+        <string>	F.Data.DataTable.Close("GP")</string>
+        <string>F.Intrinsic.Control.EndIf</string>
+        <string />
+        <string>F.Intrinsic.Control.ExitSub</string>
+        <string />
+        <string>F.Intrinsic.Control.Label("Get_Price_Err")</string>
+        <string>F.Intrinsic.Control.If(V.Ambient.ErrorNumber,&lt;&gt;,0)</string>
+        <string>	Function.Intrinsic.String.Concat("Project: GCG_4336_Group_Pricing.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)</string>
+        <string>	F.Intrinsic.UI.Msgbox(V.Local.sError)</string>
+        <string>	F.Intrinsic.Control.CallSub(exit)</string>
+        <string>Function.Intrinsic.Control.EndIf</string>
+        <string />
+        <string />
+        <string>Program.Sub.Get_Price.End</string>
+        <string />
+        <string>Program.Sub.Comments.Start</string>
+        <string>${$0$}$$}$RLK$}$2/16/2017 4:42:41 PM$}$False</string>
+        <string>${$1$}$$}$$}$1$}$10531$}$Pre-Save Hook$}$2/16/2017 4:44:34 PM$}$(Program: QTE201; Screen: QTS0201L)</string>
+        <string />
+        <string>${$1$}$$}$$}$0$}$12230$}$OES0201I-SAVE-BTN-HOOK$}$2/16/2017 4:42:41 PM$}$(Program: ORD201; Screen: OES0201I)</string>
+        <string />
+        <string>Program.Sub.Comments.End</string>
+      </Lines>
+    </TextStrings>
+  </TextSource>
+  <Scrolling>
+    <WindowOriginY>109</WindowOriginY>
+    <Options>None</Options>
+  </Scrolling>
+  <Outlining>
+    <AllowOutlining>true</AllowOutlining>
+    <ImageSize>8</ImageSize>
+    <Ranges>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>0</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>2</Y>
+        </EndPoint>
+        <Text>Program.Sub.Preflight</Text>
+        <DisplayText>Program.Sub.Preflight</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>4</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>80</Y>
+        </EndPoint>
+        <Text>Program.Sub.Main</Text>
+        <DisplayText>Program.Sub.Main</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>82</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>104</Y>
+        </EndPoint>
+        <Text>Program.Sub.Exit</Text>
+        <DisplayText>Program.Sub.Exit</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>106</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>162</Y>
+        </EndPoint>
+        <Text>Program.Sub.Get_Price</Text>
+        <DisplayText>Program.Sub.Get_Price</DisplayText>
+        <Visible>true</Visible>
+        <Level>0</Level>
+      </Range>
+      <Range>
+        <StartPoint>
+          <X>0</X>
+          <Y>164</Y>
+        </StartPoint>
+        <EndPoint>
+          <X>2147483647</X>
+          <Y>170</Y>
+        </EndPoint>
+        <Text>Program.Sub.Comments</Text>
+        <DisplayText>Program.Sub.Comments</DisplayText>
+        <Visible>false</Visible>
+        <Level>0</Level>
+      </Range>
+    </Ranges>
+  </Outlining>
+  <HyperText />
+  <Spelling />
+  <Braces />
+</SyntaxEdit>
