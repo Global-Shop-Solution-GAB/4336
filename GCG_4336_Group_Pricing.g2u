@@ -1,0 +1,187 @@
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sDate.Declare(String)
+v.Static.fPrice.Declare(Float)
+v.Local.iRet.Declare(Long)
+
+'opening connection
+F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+F.Intrinsic.Control.SelectCase(V.Caller.Hook)
+	'qty ordered hook (order entry lines)
+	F.Intrinsic.Control.Case(12490)
+		'V.Passed.000001 = Qty Ordered
+		F.Intrinsic.Control.If(V.Passed.000001.Length,=,.0)
+			F.Intrinsic.Control.CallSub(exit)
+		F.Intrinsic.Control.EndIf
+		'V.Passed.000350 = Item Promise Date
+		F.Intrinsic.Control.If(V.Passed.000350,=,000000)
+			F.Intrinsic.UI.Msgbox("A Promise Date needs to be entered")
+			'V.Passed.000001 = Qty Ordered
+			V.Passed.000001.Set(" ")
+			F.Intrinsic.Control.CallSub(exit)
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.CallSub(get_price,"Screen","Order")
+
+	'Part\Rev hook (Quick Quotes Lines) this hook fires when selecting a part and when changing the promise date
+	F.Intrinsic.Control.Case(10300)
+		F.Intrinsic.Control.If(V.Passed.000011,=,000000)
+			F.Intrinsic.String.Format(V.Ambient.Date,"YYYYMMDD",V.Local.sDate)
+			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote","Date",V.Local.sDate)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote")
+		F.Intrinsic.Control.EndIf
+
+	'qty ordered hook (Quick Quotes Lines)
+	F.Intrinsic.Control.Case(10370)
+		F.Intrinsic.Control.If(V.Passed.000007,=,.0)
+			F.Intrinsic.Control.CallSub(exit)
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.If(V.Passed.000011,=,000000)
+			F.Intrinsic.String.Format(V.Ambient.Date,"YYYYMMDD",V.Local.sDate)
+			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote","Date",V.Local.sDate)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.CallSub(get_price,"Screen","Quote")
+		F.Intrinsic.Control.EndIf
+
+	'Part Load hook (order entry lines)
+	F.Intrinsic.Control.Case(12455)
+		F.Intrinsic.Control.If(V.Passed.000350,=,000000)
+			F.Intrinsic.Control.CallSub(exit)
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.CallSub(get_price,"Screen","Order")
+
+		'Save Button hook (order entry lines)
+	F.Intrinsic.Control.Case(12510)
+		F.Intrinsic.Control.If(V.Passed.000350,=,000000)
+			F.Intrinsic.Control.CallSub(exit)
+		F.Intrinsic.Control.EndIf
+		v.Static.fPrice.Set(v.Passed.000067)
+		F.Intrinsic.Control.CallSub(get_price,"Screen","Order")
+		F.Intrinsic.Control.If(v.Passed.000067, !=, v.Static.fPrice)
+			F.Intrinsic.UI.Msgbox("Price changed.  Continue with Save?", "Save",4, v.Local.iRet)
+			F.Intrinsic.Control.If(v.Local.iRet, =, 7)
+				'v.Passed.777777 = cancel save flag
+				v.Passed.777777.Set(1)
+			F.Intrinsic.Control.Else
+				v.Passed.777777.Set(1)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.CallSub(exit)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4336_Group_Pricing.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(exit)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.Exit.Start
+F.Intrinsic.Control.SetErrorHandler("Exit_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+'closing connection
+F.ODBC.Connection!con.Close
+'ending program
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Exit_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4336_Group_Pricing.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End
+
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Exit.End
+
+Program.Sub.Get_Price.Start
+F.Intrinsic.Control.SetErrorHandler("Get_Price_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSql.Declare(String)
+V.Local.sDate.Declare(String)
+V.Local.sTemp.Declare(String)
+V.Local.bRet.Declare(Boolean,False)
+
+V.Local.sTemp.RedimPreserve(0,2)
+F.Intrinsic.Variable.ArgExists("Date",V.Local.bRet)
+
+F.Intrinsic.Control.If(V.Args.Screen,=,"Quote")
+	F.Intrinsic.Control.If(V.Local.bRet,=,True)
+		F.Intrinsic.String.Mid(V.Args.Date,3,2,V.Local.sTemp(2))
+		F.Intrinsic.String.Mid(V.Args.Date,5,2,V.Local.sTemp(0))
+		F.Intrinsic.String.Right(V.Args.Date,2,V.Local.sTemp(1))
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Mid(V.Passed.000011,3,2,V.Local.sTemp(2))
+		F.Intrinsic.String.Mid(V.Passed.000011,5,2,V.Local.sTemp(0))
+		F.Intrinsic.String.Right(V.Passed.000011,2,V.Local.sTemp(1))
+	F.Intrinsic.Control.EndIf
+	F.Intrinsic.String.Build("20{0}-{1}-{2}",V.Local.sTemp(2),V.Local.sTemp(0),V.Local.sTemp(1),V.Local.sDate)
+	F.Intrinsic.String.Build("Select Top 1 Part, Eff_Date, FF_Price From V_OE_Grp_Pricing Where Part = '{0}' and Eff_Date <= '{1}' ORDER BY Eff_Date DESC",V.Passed.000052,V.Local.sDate,V.Local.sSql)
+
+F.Intrinsic.Control.Else	
+	F.Intrinsic.String.Right(V.Passed.000350,4,V.Local.sTemp(0))
+	F.Intrinsic.String.Mid(V.Passed.000350,3,2,V.Local.sTemp(1))
+	F.Intrinsic.String.Left(V.Passed.000350,2,V.Local.sTemp(2))
+	F.Intrinsic.String.Build("{0}-{1}-{2}",V.Local.sTemp(0),V.Local.sTemp(2),V.Local.sTemp(1),V.Local.sDate)
+	F.Intrinsic.String.Build("Select Top 1 Part, Eff_Date, FF_Price From V_OE_Grp_Pricing Where Part = '{0}' and Eff_Date <= '{1}' ORDER BY Eff_Date DESC",V.Passed.000071,V.Local.sDate,V.Local.sSql)
+
+F.Intrinsic.Control.EndIf
+
+F.Data.DataTable.CreateFromSQL("GP","con",V.Local.sSql,True)
+
+F.Intrinsic.Control.If(V.DataTable.GP.RowCount--,<>,-1)
+	F.Intrinsic.Control.If(v.Args.Screen, =, "Quote")
+		V.Passed.000009.Set(V.DataTable.GP(0).FF_Price!FieldValFloat)
+	F.Intrinsic.Control.Else
+		V.Passed.000067.Set(V.DataTable.GP(0).FF_Price!FieldValFloat)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.DataTable.GP.Exists)
+	F.Data.DataTable.Close("GP")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Get_Price_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_4336_Group_Pricing.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(exit)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.Get_Price.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$RLK$}$2/16/2017 4:42:41 PM$}$False
+${$1$}$$}$$}$1$}$10531$}$Pre-Save Hook$}$2/16/2017 4:44:34 PM$}$(Program: QTE201; Screen: QTS0201L)
+
+${$1$}$$}$$}$0$}$12230$}$OES0201I-SAVE-BTN-HOOK$}$2/16/2017 4:42:41 PM$}$(Program: ORD201; Screen: OES0201I)
+
+Program.Sub.Comments.End
